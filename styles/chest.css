@@ -1,0 +1,569 @@
+/* Fase 4.1: acesso ao Baú dentro do cabeçalho real do ItemDirectory. */
+.t20-party-chest-directory-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 32px;
+  padding: 4px 7px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.t20-party-chest-directory-button:hover {
+  border-color: var(--color-border-light-2, #777);
+  background: rgba(255,255,255,.08);
+}
+.t20-party-chest-directory-button span {
+  font-size: 12px;
+}
+@media (max-width: 420px) {
+  .t20-party-chest-directory-button span { display: none; }
+}
+
+/* Header button - same visual integration pattern as party-overview-t20. */
+#items #t20-party-chest-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: auto;
+  min-width: 34px;
+  padding: 4px 8px;
+  border: 1px solid var(--color-border-light-2, #777);
+  border-radius: 4px;
+  background: var(--button-bg, rgba(0, 0, 0, 0.15));
+  color: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+#items #t20-party-chest-button:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+#items #t20-party-chest-button span {
+  font-size: 12px;
+}
+
+/* =========================================================
+   Baú do Grupo — janela (v1.10.0, tema "taverna")
+   ========================================================= */
+.t20-party-chest {
+  --t20pc-bg: #16120f;
+  --t20pc-bg-2: #1c1612;
+  --t20pc-bg-3: #211a15;
+  --t20pc-panel: #221b16;
+  --t20pc-panel-hover: #2a221c;
+  --t20pc-well: #120f0c;
+  --t20pc-raised: #2e241b;
+  --t20pc-line: #3a2f25;
+  --t20pc-line-2: #4d3e2e;
+  --t20pc-brass: #d9b25f;
+  --t20pc-brass-line: #6b5432;
+  --t20pc-text: #eee4d3;
+  --t20pc-text-strong: #f3e6c8;
+  --t20pc-text-soft: #cbbba2;
+  --t20pc-text-muted: #a8977f;
+  --t20pc-text-faint: #8f8170;
+  --t20pc-good-bg: #1f2a19;
+  --t20pc-good-line: #5d7f45;
+  --t20pc-good-text: #bfe0a6;
+  --t20pc-bad-bg: #341f19;
+  --t20pc-bad-line: #9a5545;
+  --t20pc-bad-text: #f0b3a3;
+  --t20pc-radius: 8px;
+  --t20pc-display: "Modesto Condensed", "Cinzel", "Palatino Linotype", Georgia, serif;
+  min-width: 720px;
+}
+.t20-party-chest .window-content {
+  padding: 0;
+  overflow: hidden;
+  background: var(--t20pc-bg);
+}
+.t20-party-chest > div,
+.t20-party-chest .t20pc-shell {
+  min-height: 0;
+}
+
+.t20-party-chest .t20pc-shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--t20pc-bg);
+  color: var(--t20pc-text);
+  font-family: var(--font-primary, Signika, sans-serif);
+  font-size: 14px;
+}
+.t20-party-chest .t20pc-shell.t20pc-drag-over {
+  outline: 2px dashed var(--t20pc-brass);
+  outline-offset: -6px;
+}
+
+/* Reset dos botões do Foundry dentro do Baú. */
+.t20-party-chest .t20pc-shell button {
+  width: auto;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  flex: 0 0 auto;
+  line-height: normal;
+  font-family: inherit;
+  box-shadow: none;
+  cursor: pointer;
+  transition: filter .12s, background-color .12s, border-color .12s;
+}
+.t20-party-chest .t20pc-shell button:hover { filter: brightness(1.18); }
+.t20-party-chest .t20pc-shell button:focus-visible {
+  outline: 2px solid var(--t20pc-brass);
+  outline-offset: 2px;
+}
+
+/* Cabeçalho */
+.t20-party-chest .t20pc-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 18px;
+  padding: 14px 18px;
+  background: var(--t20pc-bg-3);
+  border-bottom: 1px solid var(--t20pc-line);
+}
+.t20-party-chest .t20pc-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.t20-party-chest .t20pc-emblem {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--t20pc-raised);
+  border: 1px solid var(--t20pc-brass-line);
+  color: var(--t20pc-brass);
+  font-size: 22px;
+}
+.t20-party-chest .t20pc-title-text { display: flex; flex-direction: column; gap: 2px; }
+.t20-party-chest .t20pc-title-text h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--t20pc-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  line-height: 1.1;
+  color: var(--t20pc-text-strong);
+}
+.t20-party-chest .t20pc-title-text small { font-size: 12px; color: var(--t20pc-text-muted); }
+
+.t20-party-chest .t20pc-shell .t20pc-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.t20-party-chest .t20pc-shell .t20pc-lock.open {
+  border: 1px solid var(--t20pc-good-line);
+  background: var(--t20pc-good-bg);
+  color: var(--t20pc-good-text);
+}
+.t20-party-chest .t20pc-shell .t20pc-lock.locked {
+  border: 1px solid var(--t20pc-bad-line);
+  background: var(--t20pc-bad-bg);
+  color: var(--t20pc-bad-text);
+}
+.t20-party-chest .t20pc-shell .t20pc-lock:disabled { cursor: default; filter: none; opacity: 1; }
+
+/* Moedas */
+.t20-party-chest .t20pc-coins { display: flex; flex-wrap: wrap; gap: 8px; }
+.t20-party-chest .t20pc-coin {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 6px 5px 7px;
+  background: var(--t20pc-panel);
+  border: 1px solid var(--t20pc-line);
+  border-radius: 999px;
+}
+.t20-party-chest .t20pc-coin-disc {
+  --metal: #d9a93a;
+  --metal-ring: #a37a22;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-family: var(--t20pc-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a140e;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.55), transparent 42%), var(--metal);
+  box-shadow: inset 0 0 0 2px var(--metal-ring), 0 1px 2px rgba(0,0,0,.6);
+}
+.t20-party-chest .t20pc-coin-silver .t20pc-coin-disc { --metal: #c9ccd1; --metal-ring: #8f949b; }
+.t20-party-chest .t20pc-coin-copper .t20pc-coin-disc { --metal: #c27a4a; --metal-ring: #8e5330; }
+.t20-party-chest .t20pc-coin-info { display: flex; flex-direction: column; min-width: 38px; line-height: 1.1; }
+.t20-party-chest .t20pc-coin-info b { font-size: 17px; color: var(--t20pc-text-strong); }
+.t20-party-chest .t20pc-coin-info small { font-size: 10px; color: var(--t20pc-text-muted); white-space: nowrap; }
+.t20-party-chest .t20pc-coin-actions { display: flex; gap: 3px; }
+.t20-party-chest .t20pc-shell .t20pc-coin-actions button {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--t20pc-line-2);
+  background: var(--t20pc-raised);
+  color: var(--t20pc-text-soft);
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* Faixa de Baú trancado */
+.t20-party-chest .t20pc-locked-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  background: #2a1b17;
+  border-bottom: 1px solid #5a3a30;
+  color: #f0c4b6;
+  font-size: 13px;
+}
+
+/* Abas */
+.t20-party-chest .t20pc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 0 18px;
+  background: var(--t20pc-bg-2);
+  border-bottom: 1px solid var(--t20pc-line);
+}
+.t20-party-chest .t20pc-shell .t20pc-tabs > button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--t20pc-text-muted);
+  font-size: 14px;
+}
+.t20-party-chest .t20pc-shell .t20pc-tabs > button.active {
+  color: var(--t20pc-text-strong);
+  font-weight: 600;
+  border-bottom-color: var(--t20pc-brass);
+}
+.t20-party-chest .t20pc-gm-money {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  padding: 7px 0;
+}
+.t20-party-chest .t20pc-shell .t20pc-gm-money button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.t20-party-chest .t20pc-shell .t20pc-gm-deposit {
+  border: 1px solid #4f6b3f;
+  background: var(--t20pc-good-bg);
+  color: var(--t20pc-good-text);
+}
+.t20-party-chest .t20pc-shell .t20pc-gm-withdraw {
+  border: 1px solid #7a4a3a;
+  background: #2c1c17;
+  color: #e8b2a0;
+}
+
+/* Corpo */
+.t20-party-chest .t20pc-body { display: flex; flex: 1 1 0; min-height: 0; }
+.t20-party-chest .t20pc-sidebar {
+  width: 196px;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 10px;
+  overflow-y: auto;
+  background: #1a1511;
+  border-right: 1px solid var(--t20pc-line);
+}
+.t20-party-chest .t20pc-sidebar-label {
+  padding: 0 10px 8px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--t20pc-text-muted);
+}
+.t20-party-chest .t20pc-shell .t20pc-sidebar button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--t20pc-text-soft);
+  font-size: 14px;
+  text-align: left;
+}
+.t20-party-chest .t20pc-sidebar button i { width: 18px; text-align: center; color: var(--t20pc-text-muted); }
+.t20-party-chest .t20pc-sidebar button span { flex: 1 1 auto; }
+.t20-party-chest .t20pc-sidebar button em {
+  min-width: 22px;
+  padding: 1px 7px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  font-style: normal;
+  font-size: 11px;
+  text-align: center;
+  background: var(--t20pc-line);
+  color: var(--t20pc-text-soft);
+}
+.t20-party-chest .t20pc-shell .t20pc-sidebar button.empty { color: var(--t20pc-text-faint); }
+.t20-party-chest .t20pc-sidebar button.empty em { background: transparent; color: var(--t20pc-text-faint); }
+.t20-party-chest .t20pc-shell .t20pc-sidebar button.active {
+  border-color: var(--t20pc-brass-line);
+  background: var(--t20pc-raised);
+  color: var(--t20pc-text-strong);
+}
+.t20-party-chest .t20pc-sidebar button.active i { color: var(--t20pc-brass); }
+
+.t20-party-chest .t20pc-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: auto;
+  padding: 16px 18px;
+}
+
+/* Busca */
+.t20-party-chest .t20pc-toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  background: #1f1914;
+  border: 1px solid var(--t20pc-line);
+  border-radius: var(--t20pc-radius);
+  color: var(--t20pc-text-muted);
+}
+.t20-party-chest .t20pc-toolbar input {
+  flex: 1 1 auto;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--t20pc-text);
+  font-size: 14px;
+}
+.t20-party-chest .t20pc-toolbar input::placeholder { color: var(--t20pc-text-faint); }
+.t20-party-chest .t20pc-toolbar small { font-size: 11px; white-space: nowrap; }
+
+/* Itens */
+.t20-party-chest .t20pc-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  align-content: start;
+  gap: 10px;
+  min-height: 360px;
+  margin-top: 14px;
+}
+.t20-party-chest .t20pc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: var(--t20pc-panel);
+  border: 1px solid var(--t20pc-line);
+  border-radius: 10px;
+  cursor: grab;
+  transition: border-color .12s, background-color .12s;
+}
+.t20-party-chest .t20pc-item:hover { border-color: var(--t20pc-brass-line); background: var(--t20pc-panel-hover); }
+.t20-party-chest .t20pc-items .t20pc-item[hidden],
+.t20-party-chest .t20pc-items .t20pc-search-empty[hidden] { display: none; }
+.t20-party-chest .t20pc-item-img {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  background: var(--t20pc-well);
+  border: 1px solid var(--t20pc-line-2);
+}
+.t20-party-chest .t20pc-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: 0;
+  border-radius: 7px;
+}
+.t20-party-chest .t20pc-item-img b {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--t20pc-brass);
+  color: #1a140e;
+  font-size: 11px;
+  font-weight: 700;
+  pointer-events: none;
+}
+.t20-party-chest .t20pc-item-info {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.t20-party-chest .t20pc-item-info strong {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--t20pc-text-strong);
+}
+.t20-party-chest .t20pc-item-info small {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--t20pc-raised);
+  color: var(--t20pc-text-soft);
+  font-size: 11px;
+}
+.t20-party-chest .t20pc-item-actions { display: flex; gap: 6px; flex: 0 0 auto; }
+.t20-party-chest .t20pc-shell .t20pc-item-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.t20-party-chest .t20pc-shell .t20pc-take {
+  padding: 0 10px;
+  border: 1px solid var(--t20pc-brass-line);
+  background: var(--t20pc-raised);
+  color: #e6d3ad;
+}
+.t20-party-chest .t20pc-shell .t20pc-discard {
+  width: 32px;
+  padding: 0;
+  border: 1px solid var(--t20pc-line-2);
+  background: transparent;
+  color: #c98f80;
+}
+
+.t20-party-chest .t20pc-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 240px;
+  padding: 24px;
+  text-align: center;
+  color: var(--t20pc-text-muted);
+  border: 1px dashed var(--t20pc-line-2);
+  border-radius: 10px;
+}
+.t20-party-chest .t20pc-empty i { font-size: 28px; color: var(--t20pc-brass-line); }
+.t20-party-chest .t20pc-empty p { margin: 0; color: var(--t20pc-text-soft); }
+
+/* Histórico */
+.t20-party-chest .t20pc-history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.t20-party-chest .t20pc-history-head strong {
+  font-family: var(--t20pc-display);
+  font-size: 18px;
+  color: var(--t20pc-text-strong);
+}
+.t20-party-chest .t20pc-history-head small { display: block; margin-top: 2px; font-size: 12px; color: var(--t20pc-text-muted); }
+.t20-party-chest .t20pc-shell .t20pc-history-head button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--t20pc-line-2);
+  background: var(--t20pc-raised);
+  color: var(--t20pc-text-soft);
+  font-size: 12px;
+}
+.t20-party-chest .t20pc-history { display: flex; flex-direction: column; gap: 6px; }
+.t20-party-chest .t20pc-history-row {
+  --kind-bg: var(--t20pc-good-bg);
+  --kind-line: #4f6b3f;
+  --kind-text: var(--t20pc-good-text);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  background: #1f1914;
+  border: 1px solid var(--t20pc-line);
+  border-radius: var(--t20pc-radius);
+}
+.t20-party-chest .t20pc-history-row.t20pc-out { --kind-bg: var(--t20pc-raised); --kind-line: var(--t20pc-brass-line); --kind-text: #e6d3ad; }
+.t20-party-chest .t20pc-history-row.t20pc-trash { --kind-bg: #2c1c17; --kind-line: #7a4a3a; --kind-text: #e8b2a0; }
+.t20-party-chest .t20pc-history-icon {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--kind-bg);
+  border: 1px solid var(--kind-line);
+  color: var(--kind-text);
+  font-size: 12px;
+}
+.t20-party-chest .t20pc-history-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.t20-party-chest .t20pc-history-text > span { color: var(--t20pc-text-strong); }
+.t20-party-chest .t20pc-history-text strong { font-weight: 600; }
+.t20-party-chest .t20pc-history-text small { font-size: 12px; color: var(--t20pc-text-muted); }
+.t20-party-chest .t20pc-history-row > b { flex: 0 0 auto; font-size: 14px; color: var(--kind-text); white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .t20-party-chest .t20pc-sidebar { width: 160px; }
+  .t20-party-chest .t20pc-toolbar small { display: none; }
+}
